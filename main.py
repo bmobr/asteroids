@@ -8,9 +8,9 @@ def main():
     pygame.init()
     game_clock = pygame.time.Clock()
     dt = 0
-    print("Starting asteroids!")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
+    # print("Starting asteroids!")
+    # print(f"Screen width: {SCREEN_WIDTH}")
+    # print(f"Screen height: {SCREEN_HEIGHT}")
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     # main loop
@@ -20,10 +20,11 @@ def main():
             if event.type == pygame.QUIT:
                 continue_game = False
 
-        # last line
-        dt = (game_clock.tick(60))/1000
+        # last line        
         screen.fill("black")
         pygame.display.flip()
+        # limita framerate a 60 fps
+        dt = game_clock.tick(60)/1000
     pygame.quit()
     
 
