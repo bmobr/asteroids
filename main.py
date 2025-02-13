@@ -2,6 +2,7 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+import sys
 from constants import *
 from player import * 
 from asteroid import *
@@ -43,6 +44,13 @@ def main():
                 continue_game = False
 
         updatable.update(dt)
+
+        # checar colisão
+        for obj in asteroids:
+            if (player.check_collision(obj)):
+                print("Game over!")
+                sys.exit()
+
         
         screen.fill("black")
 
