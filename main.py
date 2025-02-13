@@ -52,8 +52,9 @@ def main():
         for asteroid in asteroids:
             # player
             if (player.check_collision(asteroid)):
-                print("Game over!")
-                sys.exit()
+                if player.is_dead():
+                    print("Game over!")
+                    sys.exit()
             # tiro
             for shot in shots:
                 if shot.check_collision(asteroid):

@@ -9,6 +9,9 @@ class Player(CircleShape):
         super().__init__(x,y,PLAYER_RADIUS)
         self.rotation = 0
         self.shoot_timer = 0
+        self.lives = PLAYER_LIVES
+        self.initial_x = x
+        self.initial_y = y
 
     # in the player class
     def triangle(self): 
@@ -56,4 +59,14 @@ class Player(CircleShape):
         velocity = pygame.Vector2(0, 1).rotate(self.rotation)
         velocity *= PLAYER_SHOOT_SPEED
         shot.velocity = velocity
+
+    def is_dead(self):
+        if self.lives <= 0:
+            return True
+        else:
+            self.lives -= 1
+            self.shoot_timer = 0
+            self.velocity = 0
+            self.position = pygame.Vector2(self.initial_x, self.initial_y)
+            return False
         
