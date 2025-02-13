@@ -3,15 +3,37 @@
 # throughout this file
 import pygame
 from constants import *
+from player import * 
+from asteroid import *
+from asteroidfield import *
 
 def main():
     pygame.init()
     game_clock = pygame.time.Clock()
     dt = 0
+    
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+
+    # pygame group permite adicionar sprites a um grupo, para chamar métodos comuns a classe sprite de uma vez para todos do grupo
+    # usar esse método antes de declarar as instâncias
+    Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
+
     # print("Starting asteroids!")
     # print(f"Screen width: {SCREEN_WIDTH}")
     # print(f"Screen height: {SCREEN_HEIGHT}")
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    x = SCREEN_WIDTH /2
+    y = SCREEN_HEIGHT /2
+    player = Player(x,y)
+    asteroidfield = AsteroidField()
+
+    # usar esse método para adicionar no grupo após instanciar
+    # updatable.add(player)
+    # drawable.add(player)
 
     # main loop
     continue_game = True
@@ -20,11 +42,18 @@ def main():
             if event.type == pygame.QUIT:
                 continue_game = False
 
-        # last line        
+        updatable.update(dt)
+        
         screen.fill("black")
+
+        for obj in drawable:
+            obj.draw(screen)   
+
         pygame.display.flip()
+
         # limita framerate a 60 fps
         dt = game_clock.tick(60)/1000
+
     pygame.quit()
     
 
